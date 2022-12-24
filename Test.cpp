@@ -72,6 +72,7 @@ void display(vector<vector<int>> &matrix) {
 int main()
 {   
     vector<vector<int>> matrix;
+    srand(time(0));
     int n, m;
     cin >> n >> m;
     matrix = create_matrix(n,m);
