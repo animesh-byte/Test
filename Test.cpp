@@ -24,12 +24,15 @@ void swap_row(vector<int>&v1, vector<int> &v2){
         v1[i] ^= v2[i] ^= v1[i] ^= v2[i];
     }
 }
-void cycle_sort(vector<vector<int>>&v,vector<pair<int,int>>&p, vector<vector<int>> temp){
-    for(int i = 0; i < p.size(); i++) {
-        if(p[i].second == i) continue;
-        for(int j = 0; j < v[i].size(); j++) {
-            v[i][j] = temp[p[i].second][j];
-        }
+void cycle_sort(vector<vector<int>>&v,vector<int>&indexes){
+    int i1=0,i2;
+    for(;i1<indexes.size();){
+        i2=indexes[i1];
+        if(i1==i2) i1++;
+        else{
+            swap_row(v[i1],v[i2]);
+            swap(indexes[i1],indexes[i2]);
+        }   
     }
 }
 void _sort(vector<vector<int>>&v,int col){
@@ -39,7 +42,11 @@ void _sort(vector<vector<int>>&v,int col){
         arr[i].second=i;
     }
     sort(arr.begin(),arr.end());
-    cycle_sort(v,arr, v);
+    vector<int> indexes(arr.size());
+    for(int i=0;i<arr.size();i++){
+        indexes[arr[i].second]=i;
+    }
+    cycle_sort(v,indexes);
 }
 int main()
 {   
